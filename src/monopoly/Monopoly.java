@@ -234,22 +234,22 @@ class Chance {
 		String returnedCard = discardPileStack.push(shuffledChanceStack.pop());
 		System.out.println("The returned top card is: [" + returnedCard + "] \n");
 
-		if(returnedCard == "\"Advance to Boardwalk\"")
+		if(returnedCard.equals("\"Advance to Boardwalk\""));
 		{
 			//set correct position?
 			currentPosition = 0;
 		}
 
-		else if (returnedCard == "Advance to Go (Collect $200)") {
+		else if (returnedCard.equals("Advance to Go (Collect $200)")) {
 			currentPosition = 0;
 		}
 
-		else if (returnedCard == "Advance to Illinois Avenue. If you pass Go, collect $200" ) {
+		else if (returnedCard.equals("Advance to Illinois Avenue. If you pass Go, collect $200" )) {
 			//set correct position?
 			currentPosition = 0;
 		}
 
-		else if (returnedCard == "Advance to St. Charles Place. If you pass Go, collect $200" ) {
+		else if (returnedCardequals("Advance to St. Charles Place. If you pass Go, collect $200" )) {
 			//set correct position?
 			currentPosition = 0;
 		}
@@ -266,22 +266,22 @@ class Chance {
 		}
 
 
-		else if (returnedCard == "Get Out of Jail Free" ) {
+		else if (returnedCard.equals("Get Out of Jail Free" )) {
 			getOutofJailFree = true;
 		}
 
 
-		else if (returnedCard == "Go Back 3 Spaces") {
+		else if (returnedCard.equals("Go Back 3 Spaces")) {
 			currentPosition = currentPosition - 3;
 		}
 
 
-		else if (returnedCard == "Go to Jail. Go directly to Jail, do not pass Go, do not collect $200") {
+		else if (returnedCard.equals("Go to Jail. Go directly to Jail, do not pass Go, do not collect $200")) {
 			currentPosition = 10;
 		}
 
 
-		else if (returnedCard == "Take a trip to Reading Railroad. If you pass Go, collect $200" {
+		else if (returnedCard.equals("Take a trip to Reading Railroad. If you pass Go, collect $200")) {
 			currentPosition = 10;
 		}
 
