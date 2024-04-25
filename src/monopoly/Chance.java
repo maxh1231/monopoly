@@ -16,11 +16,28 @@ public class Chance {
 		Stack<String> chanceCardsStack = new Stack<>();
 		Stack discardPileStack = new Stack();
 
-		chanceCardsStack.push("Test1");
-		chanceCardsStack.push("Test2");
-		chanceCardsStack.push("Test3");
-		chanceCardsStack.push("Test4");
-		chanceCardsStack.push("Test5");
+//		chanceCardsStack.push("Test1");
+//		chanceCardsStack.push("Test2");
+//		chanceCardsStack.push("Test3");
+//		chanceCardsStack.push("Test4");
+//		chanceCardsStack.push("Test5");
+
+		chanceCardsStack.push("Advance to Boardwalk");
+		chanceCardsStack.push("Advance to Go (Collect $200)");
+		chanceCardsStack.push("Advance to Illinois Avenue. If you pass Go, collect $200");
+		chanceCardsStack.push("Advance to St. Charles Place. If you pass Go, collect $200");
+		chanceCardsStack.push("Advance to the nearest Railroad. If unowned, you may buy it from the Bank. If owned, pay owner twice the rental to which they are otherwise entitled");
+		chanceCardsStack.push("Advance to the nearest Railroad. If unowned, you may buy it from the Bank. If owned, pay owner twice the rental to which they are otherwise entitled");
+		chanceCardsStack.push("Advance token to nearest Utility. If unowned, you may buy it from the Bank. If owned, throw dice and pay owner a total ten times amount thrown");
+		chanceCardsStack.push("Bank pays you dividend of $50");
+		chanceCardsStack.push("Get Out of Jail Free");
+		chanceCardsStack.push("Go Back 3 Spaces");
+		chanceCardsStack.push("Go to Jail. Go directly to Jail, do not pass Go, do not collect $200");
+		chanceCardsStack.push("Make general repairs on all your property. For each house pay $25. For each hotel pay $100");
+		chanceCardsStack.push("Speeding fine $15");
+		chanceCardsStack.push("Take a trip to Reading Railroad. If you pass Go, collect $200");
+		chanceCardsStack.push("You have been elected Chairman of the Board. Pay each player $50");
+		chanceCardsStack.push("Your building loan matures. Collect $150");
 
 		// Testing to see cards:
 		System.out.println("Un-shuffled cards:");
@@ -83,7 +100,14 @@ public class Chance {
 	 */
 	public static Stack chanceFunction(Stack<String> shuffledChanceStack, Stack<String> discardPileStack) {
 
-		System.out.println("The returned top card is: [" + discardPileStack.push(shuffledChanceStack.pop()) + "] \n");
+		String returnedCard = discardPileStack.push(shuffledChanceStack.pop());
+		System.out.println("The returned top card is: [" + returnedCard + "] \n");
+
+		if(returnedCard == "\"Advance to Boardwalk\"")
+		{
+			//position is updated
+			//needs current position though
+		}
 
 		return discardPileStack;
 
