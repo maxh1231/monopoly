@@ -20,10 +20,14 @@ public class DiceResult {
 	public int getConsecutiveDoublesCount() {
 		return _consecutiveDoublesCount;
 	}
+	
+	public void set_consecutiveDoublesCount(int _consecutiveDoublesCount) {
+		this._consecutiveDoublesCount = _consecutiveDoublesCount;
+	}
 
 	public DiceResult(int diceRoll1, int diceRoll2, int consecutiveDoublesCount) {
-		_diceRoll1 = diceRoll1;
-		_diceRoll2 = diceRoll2;
-		_consecutiveDoublesCount = consecutiveDoublesCount;
+		this._diceRoll1 = diceRoll1;
+		this._diceRoll2 = diceRoll2;
+		this._consecutiveDoublesCount = consecutiveDoublesCount;
 	}
 }

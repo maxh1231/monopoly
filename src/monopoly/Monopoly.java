@@ -1,87 +1,131 @@
 package monopoly;
 
-import java.util.*;
+import java.util.Collections;
+import java.util.Stack;
 
 public class Monopoly {
-	private int[] board;
-	private String[] boardNames;
-	private int currentPosition;
-	private Stack<String> communityChestCards;
-	private Stack<String> chanceCards;
-	private boolean inJail;
-	private boolean getOutOfJailFree;
-	private int totalMoves;
+    private int[] board = new int[40];
+    private int currentPosition = 0;
+	private int turnsInJail = 0;
+    private boolean inJail = false;
+    private boolean getOutOfJailFreeChance = false;
+	private boolean getOutOfJailFreeCommunity = false;
+    private Dice dice = new Dice();
+    private Stack<String> communityChestCards = new Stack<>();
+    private Stack<String> chanceCards = new Stack<>();
 
-	public Monopoly() {
-		this.board = new int[40];
-		this.currentPosition = 0;
-		this.communityChestCards = new Stack<>();
-		Collections.shuffle(this.communityChestCards);
-		this.chanceCards = new Stack<>();
-		this.inJail = false;
-		this.getOutOfJailFree = false;
+    public Monopoly() {
+        loadCards();
+    }
 
-	}
+    private void loadCards() {
+        communityChestCards.push("Advance to Go");
+        communityChestCards.push("Go to Jail");
+        // more
+        Collections.shuffle(communityChestCards);
 
-	public void JailA() {
-		if (getOutOfJailFree == true) {
-			getOutOfJailFree = false; // use get out of jail free card
-			currentPosition = 10;
-//	         RollDice();
-			// move player
-		} else { // pay fine
-			currentPosition = 10;
-//	         RollDice();
-			// move player
+        chanceCards.push("Advance to Boardwalk");
+        chanceCards.push("Go Back 3 Spaces");
+        // more
+        Collections.shuffle(chanceCards);
+    }
+
+    public void movePlayer() {
+        DiceResult diceResult = dice.RollDice();
+
+		if (diceResult.getConsecutiveDoublesCount() == 3){
+			goToJail();
+			return;
 		}
-	}
 
-	public void JailB() {
-		if (getOutOfJailFree == true) {
-			getOutOfJailFree = false; // use get out of jail free card
-			currentPosition = 10;
-//	         RollDice();
-			// move player
-		} else {
-			int count = 1;
-			boolean doubles = false;
-			for (int x = 1; x <= 3; x++) {
-				doubles = RollDice();
-				if (doubles == true) {
-					// move player
-					break;
-				}
-				count++;// counting number of tries for doubles
+        if (inJail) {
+            handleJailA(diceResult);
+			if (inJail){
+				turnsInJail++;
+				return; // Onlly return if player did not get out after handleJail
 			}
-			if (count > 3) { // 4th turn, pays fine
-//	            RollDice();
-				// move player
-			}
+            diceResult.set_consecutiveDoublesCount(0);
+        }
+
+        int spacesToMove = diceResult.getDiceRoll1() + diceResult.getDiceRoll2();
+        currentPosition = (currentPosition + spacesToMove) % 40;
+        board[currentPosition]++;
+
+        if (currentPosition == 30) {
+            goToJail();
+        } else {
+            checkLandingPosition();
+        }
+    }
+
+    private void handleJailB(DiceResult diceResult) {
+        if (getOutOfJailFreeChance) {
+            getOutOfJailFreeChance = false;
+            inJail = false;
+            return;
+        } else if (getOutOfJailFreeCommunity) {
+			getOutOfJailFreeCommunity = false;
+            inJail = false;
+            return;
 		}
-	}
+        if (diceResult.isDoubles()) {
+            inJail = false;
+        }
+		if (turnsInJail == 3){
+			turnsInJail = 0;
+			inJail = false;
+		}
+    }
 
-	
-    public void movePlayer(int spacesToMove) {
-        int newPosition = (currentPosition + spacesToMove) % 40; 
-        
-        if (newPosition < currentPosition) {
-        	// Go
+	// player gets out of jail either way for strategy A
+	private void handleJailA(DiceResult diceResult) {
+        if (getOutOfJailFreeChance) {
+            getOutOfJailFreeChance = false;
+        } else if (getOutOfJailFreeCommunity) {
+			getOutOfJailFreeCommunity = false;
+		}
+        inJail = false;
+    }
+
+    private void goToJail() {
+        currentPosition = 10;
+        inJail = true;
+    }
+
+    private void checkLandingPosition() {
+        switch (currentPosition) {
+            case 2:
+            case 17:
+            case 33:
+                drawCard(communityChestCards);
+                break;
+            case 7:
+            case 22:
+            case 36:
+                drawCard(chanceCards);
+                break;
         }
-        
-        // Update the current position
-        currentPosition = newPosition;
-        
-        // Jail
-        if (newPosition == 30) {
-            currentPosition = 10;
-            inJail = true;
-        } else if (newPosition == 7 || newPosition == 22 || newPosition == 36) {
-            // Chance
-        } else if (newPosition == 2 || newPosition == 17 || newPosition == 33) {
-            //Community Chest
+    }
+
+    private void drawCard(Stack<String> cards) {
+        if (cards.isEmpty()) {
+            loadCards(); 
         }
-        
-        totalMoves++;
-        board[newPosition]++;
+        String card = cards.pop();
+        executeCardAction(card);
+    }
+
+    private void executeCardAction(String card) {
+        //System.out.println("Card drawn: " + card);
+        // TODO
+    }
+
+    public static void main(String[] args) {
+        Monopoly game = new Monopoly();
+        for (int i = 0; i < 1000000; i++) {
+            game.movePlayer();
+        }
+
+        CsvExport.exportToCSV("counts.csv", game.board);
     }
 }
