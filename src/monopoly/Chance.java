@@ -5,6 +5,8 @@ import java.util.Collections;
 import java.util.Stack;
 
 //Boolean variable to know if its the first time it's being called??
+//TEST 1 ALEX
+
 
 public class Chance {
 	public static void main(String[] args) {
