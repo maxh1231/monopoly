@@ -12,9 +12,7 @@ public class Monopoly {
 	private boolean getOutOfJailFreeCommunity = false;
     private Dice dice = new Dice();
     private Stack<String> communityChestCards = new Stack<>();
-    private Stack<String> discardPileCommunityChest = new Stack<>();
     private Stack<String> chanceCards = new Stack<>();
-    private Stack<String> discardPileChance = new Stack<>();
 
     public Monopoly() {
         loadCommunityCards();
@@ -149,11 +147,9 @@ public class Monopoly {
 
     private void drawCommunityCard(Stack<String> cards) {
         if (cards.isEmpty()) {
-            loadCommunityCards();
-			discardPileCommunityChest.clear();
+            loadCommunityCards(); 
         }
-        String card = cards.peek();
-		discardPileCommunityChest.push(cards.pop());
+        String card = cards.pop();
         executeCommunityCardAction(card);
     }
 
@@ -173,11 +169,9 @@ public class Monopoly {
 
 	private void drawChanceCard(Stack<String> cards) {
         if (cards.isEmpty()) {
-            loadChanceCards();
-			discardPileChance.clear();
+            loadChanceCards(); 
         }
-		String card = cards.peek();
-		discardPileChance.push(cards.pop);
+        String card = cards.pop();
         executeChanceCardAction(card);
     }
 
