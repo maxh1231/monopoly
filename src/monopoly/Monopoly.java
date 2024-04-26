@@ -19,14 +19,34 @@ public class Monopoly {
     }
 
     private void loadCards() {
-        communityChestCards.push("Advance to Go");
-        communityChestCards.push("Go to Jail");
-        // more
+		if (!getOutOfJailFreeCommunity){
+			communityChestCards.push("Get out of Jail Free");
+		}
+		communityChestCards.push("Advance to Go");
+		communityChestCards.push("Go to Jail");
+		for (int i = 0; i < 13; i++) {
+			communityChestCards.push("NA");
+		}
+
         Collections.shuffle(communityChestCards);
 
+		if (!getOutOfJailFreeChance){
+			chanceCards.push("Get Out of Jail Free");
+		}
         chanceCards.push("Advance to Boardwalk");
-        chanceCards.push("Go Back 3 Spaces");
-        // more
+		chanceCards.push("Advance to Go");
+		chanceCards.push("Advance to Illinois Avenue");
+		chanceCards.push("Advance to St. Charles Place");
+		chanceCards.push("Advance to the nearest Railroad");
+		chanceCards.push("Advance to the nearest Railroad");
+		chanceCards.push("Advance token to nearest Utility");
+		chanceCards.push("Go Back 3 Spaces");
+		chanceCards.push("Go to Jail");
+		chanceCards.push("Take a trip to Reading Railroad");
+		for (int i = 0; i < 5; i++){
+			chanceCards.push("NA");
+		}
+
         Collections.shuffle(chanceCards);
     }
 
