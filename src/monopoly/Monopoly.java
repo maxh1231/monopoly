@@ -66,7 +66,7 @@ public class Monopoly {
 			}
 
        	 	if (inJail) {
-            	releasedFromJail = handleJailA(diceResult);
+            	releasedFromJail = handleJailB(diceResult);
 				if (inJail){
 					turnsInJail++;
 					return; // Onlly return if player did not get out after handleJail
@@ -186,7 +186,45 @@ public class Monopoly {
 			case "Get Out of Jail Free":
 				getOutOfJailFreeChance = true;
 				break;
-			// TODO - finish chance cases
+			case "Advance to Boardwalk":
+				currentPosition = 39;
+				break;
+			case "Advance to Illinois Avenue":
+				currentPosition = 24;
+				break;
+			case "Advance to St. Charles Place":
+				currentPosition = 11;
+				break;
+			case "Advance to nearest Railroad":
+				switch (currentPosition) {
+					case 7:
+						currentPosition = 15;
+						break;
+					case 22:
+						currentPosition = 25;
+						break;
+					case 36:
+						currentPosition = 5;
+						break;
+				}
+				break;
+			case "Take a trip to Reading Railroad":
+				currentPosition = 5;
+				break;
+			case "Advance to nearest Utility":
+				switch (currentPosition) {
+					case 7:
+					case 36:
+						currentPosition = 12;
+						break;
+					case 22:
+						currentPosition = 28;
+						break;
+				}
+				break;
+			case "Go Back 3 Spaces":
+				currentPosition -= 3;
+				break;
 		}
 	}
 
