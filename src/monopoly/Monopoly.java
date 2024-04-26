@@ -66,7 +66,7 @@ public class Monopoly {
 			}
 
        	 	if (inJail) {
-            	releasedFromJail = handleJailB(diceResult);
+            	releasedFromJail = handleJailA(diceResult);
 				if (inJail){
 					turnsInJail++;
 					return; // Onlly return if player did not get out after handleJail
@@ -230,10 +230,23 @@ public class Monopoly {
 
     public static void main(String[] args) {
         Monopoly game = new Monopoly();
-        for (int i = 0; i < 1000000; i++) {
+		Monopoly game2 = new Monopoly();
+		Monopoly game3 = new Monopoly();
+		Monopoly game4 = new Monopoly();
+
+        for (int i = 0; i < 1000; i++) {
             game.movePlayer();
         }
+		for (int i = 0; i < 10000; i++) {
+            game2.movePlayer();
+        }
+		for (int i = 0; i < 100000; i++) {
+            game3.movePlayer();
+        }
+		for (int i = 0; i < 1000000; i++) {
+            game4.movePlayer();
+        }
 
-        CsvExport.exportToCSV("counts.csv", game.board);
+        CsvExport.exportToCSV("counts.csv", game.board, game2.board, game3.board, game4.board);
     }
 }
