@@ -8,7 +8,7 @@ public class CsvExport {
 
     public static void exportToCSV(String filename, int[] data, int[] data2, int[] data3, int[] data4) {
         try (BufferedWriter bw = new BufferedWriter(new FileWriter(filename))) {
-            bw.write("Square,Count\n");
+            bw.write("n = 1000,n = 10000,n = 10000,n = 10000,\n");
             for (int i = 0; i < data.length; i++) {
                 bw.write(data[i] + "," + data2[i] + "," + data3[i] + "," + data4[i] + "\n");
             }
